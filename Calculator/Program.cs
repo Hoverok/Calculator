@@ -9,70 +9,78 @@ namespace Calculator
     {
         static void Main()
         {
-            double rez = -8, var1=0; // rez keeps track of the result, var1 used for operations
-            string CalcOperator; // reads the operator as a string
-           
+            double rez = 0, var1 = 0; // rez keeps track of the result, var1 used for operations
+            string CalcOperator = " "; // reads the operator as a string
+             
+
 
             Console.WriteLine("Welcome to a generic calculator application");
-            Console.WriteLine("The current result is {0}, what operation would you like to do?", rez);
-            CalcOperator = Console.ReadLine().ToUpper(); //ToUpper capitalizes all the letters, helps with error handling
-            if (CalcOperator != "CLEAR" && CalcOperator != "POSITIVE" && CalcOperator != "NEGATIVE" && CalcOperator != "HELP") {
-                var1 = double.Parse(Console.ReadLine());
-            }
-
-            switch (CalcOperator)
+            do
             {
-                case "ADD":
-                    rez = Program.Add(rez, var1);
-                    break;
-                case "SUBTRACT":
-                    rez = Program.Subtract(rez, var1);
-                    break;
-                case "DIVIDE":
-                    rez = Program.Divide(rez, var1);
-                    break;
-                case "TIMES":
-                    rez = Program.Multiply(rez, var1);
-                    break;
-                case "POWER":
-                    rez = Program.Power(rez, var1);
-                    break;
-                case "ROOT":
-                    rez = Program.Root(rez, var1);
-                    break;
-                case "CLEAR":
-                    rez = 0;
-                    break;
-                case "POSITIVE":
-                    rez = Program.Positive(rez);
-                    break;
-                case "NEGATIVE":
-                    rez = Program.Negative(rez);
-                    break;
-                case "HELP":
-                    Program.Help();
-                    break;
-                default:
-                    Console.WriteLine("Invalid command or a typo");
-                    break;
-            }
-            Console.WriteLine(rez);
-        }
+                Console.WriteLine("The current result is {0} \nWhat operation would you like to do?", rez);
+                string[] tokens = Console.ReadLine().Split(); //reads input into an array of strings and splits on space
 
-        /*
- •	Add <number> - adds a number to the result
-•	Subtract <number> - subtracts number from the result
-•	Divide <number> - divides result by the number
-•	Times <number> - multiples number by the result 
-•	Power <number> - rises the result by power of number
-•	Root <number> - finds the base number of the result raised in power by number
-•	Clear – Makes result a 0
-•	Negative – Changes result to negative
-•	Positive – Changes result to positive
-•	Help – Shows all possible commands and descriptions
 
-         */
-         //ADD
+                if (tokens.Length == 1)
+                {
+
+                    CalcOperator = tokens[0].ToUpper();
+                    Console.WriteLine("{0}", CalcOperator);
+                }
+                else if (tokens.Length == 2)
+                {
+                    CalcOperator = tokens[0].ToUpper();
+                    var1 = double.Parse(tokens[1]);
+                    Console.WriteLine("{0} {1}", CalcOperator, var1);
+                }
+                    /*CalcOperator = Console.ReadLine().ToUpper(); //ToUpper capitalizes all the letters, helps with error handling
+                    if (CalcOperator != "CLEAR" && CalcOperator != "POSITIVE" && CalcOperator != "NEGATIVE" && CalcOperator != "HELP")
+                    {
+                        var1 = double.Parse(Console.ReadLine());
+                    }
+                    */
+                    switch (CalcOperator)
+                {
+                    case "ADD":
+                        rez = Program.Add(rez, var1);
+                        break;
+                    case "SUBTRACT":
+                        rez = Program.Subtract(rez, var1);
+                        break;
+                    case "DIVIDE":
+                        rez = Program.Divide(rez, var1);
+                        break;
+                    case "TIMES":
+                        rez = Program.Multiply(rez, var1);
+                        break;
+                    case "POWER":
+                        rez = Program.Power(rez, var1);
+                        break;
+                    case "ROOT":
+                        rez = Program.Root(rez, var1);
+                        break;
+                    case "CLEAR":
+                        rez = 0;
+                        break;
+                    case "POSITIVE":
+                        rez = Program.Positive(rez);
+                        break;
+                    case "NEGATIVE":
+                        rez = Program.Negative(rez);
+                        break;
+                    case "HELP":
+                        Program.Help();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command or a typo");
+                        break;
+                }
+                Console.Clear();
+                
+            } while (true);
+}
+    
+
         public static double Add(double a, double b)
         {
             return a + b;
@@ -196,7 +204,9 @@ namespace Calculator
         }
         public static void Help()
         {
-            Console.WriteLine("You have selected help, there will be description!");
+            Console.Clear();
+            Console.WriteLine("You have selected help, there will be description!\nPress any key to continue");
+            Console.ReadKey();
         }
     }
 }
